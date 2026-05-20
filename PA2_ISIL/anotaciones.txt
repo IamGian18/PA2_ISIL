@@ -1,0 +1,58 @@
+Actúa como arquitecto y desarrollador senior de Streamlit (Python) y como ingeniero de ML deployment. Tu objetivo es generar un único archivo app.py listo para ejecutar (sin texto extra), cumpliendo exactamente los requisitos abajo. Si falta algún dato, haz supuestos razonables y decláralos en comentarios dentro del código, sin preguntar.
+
+Contexto del proyecto:
+Se requiere una app web en Streamlit llamada "Predicción de Enfermedades Cardíacas" que permita ingresar variables clínicas y predecir riesgo usando uno de dos modelos ya entrenados.
+
+Requisitos funcionales (obligatorios):
+
+1. Entrada de datos del usuario:
+Debe ser mediante barra lateral (sidebar).
+Variables a solicitar (en el mismo orden exacto del entrenamiento original):
+* edad (slider de 20 a 100)
+* sexo (selectbox: 0 - Femenino, 1 - Masculino)
+* cp - tipo de dolor (selectbox: 0, 1, 2, 3)
+* trestbps - presión en reposo (slider: 90 a 200)
+* chol - colesterol (slider: 100 a 600)
+* fbs - azúcar en sangre > 120 (selectbox: 0 - Falso, 1 - Verdadero)
+* restecg - resultados ECG (selectbox: 0, 1, 2)
+* thalach - frecuencia máxima (slider: 70 a 220)
+* exang - angina inducida (selectbox: 0 - No, 1 - Sí)
+* oldpeak - depresión ST (slider: 0.0 a 6.0, step 0.1)
+* slope - pendiente ST (selectbox: 0, 1, 2)
+* ca - número de vasos (slider: 0 a 4)
+* thal - thalassemia (selectbox: 0, 1, 2, 3)
+
+2. Selector de modelo:
+Menú desplegable en la página principal con exactamente: "Regresión Logística" y "Random Forest".
+
+3. Carga de artefactos:
+Cargar desde la carpeta relativa 'modelos/':
+* modelo_regresion_logistica.pkl
+* modelo_random_forest.pkl
+* escalador_heart_disease.pkl
+Usar @st.cache_resource para evitar recargas.
+Mostrar un st.error si falta algún archivo.
+
+4. Preprocesamiento:
+Convertir la entrada del usuario a un DataFrame de pandas con las 13 columnas en el orden especificado arriba.
+Escalar los datos usando el escalador cargado (scaler.transform) antes de predecir.
+
+5. Salida en pantalla principal:
+Al hacer clic en un botón "Generar Diagnóstico", mostrar:
+* Predicción final: "Paciente Sano" (éxito) o "Paciente con Riesgo Cardíaco" (peligro).
+* Probabilidad del diagnóstico (en % con 2 decimales usando predict_proba).
+
+6. Branding en la página principal:
+Mostrar (usando st.markdown):
+* Nombre: [NOMBRE_AQUI]
+* Código ISIL: [CODIGO_ISIL_AQUI]
+* Enlace al cuaderno de Colab: [URL_COLAB_AQUI]
+
+Requisitos de UX/calidad:
+* Interfaz clara: título, descripción breve, uso de emojis y resultados destacados (st.success, st.error).
+* Código limpio, comentado y en español.
+
+Restricciones:
+* No entrenes modelos. Solo carga y usa los .pkl.
+* No uses rutas absolutas: usa "modelos/...".
+* Entrega solo el código de app.py.
